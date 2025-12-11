@@ -1,0 +1,48 @@
+      public class Book
+                {
+                    private string[] chapters;
+                    public Book(int maxChapters = 10)
+                    {
+                        chapters = new string[maxChapters];
+                    }
+                    public string this[int index]
+                    {
+                        get
+                        {
+                            if (index < 0 || index >= chapters.Length)
+                                throw new IndexOutOfRangeException("Неверный номер главы");
+                            return chapters[index];
+                        }
+                        set
+                        {
+                            if (index < 0 || index >= chapters.Length)
+                                throw new IndexOutOfRangeException("Неверный номер главы");
+                            chapters[index] = value;
+                        }
+                    }
+                    public override string ToString()
+                    {
+                        var sb = new StringBuilder();
+                        int chapterNumber = 1;
+
+                        foreach (var chapter in chapters)
+                        {
+                            if (!string.IsNullOrEmpty(chapter))
+                            {
+                                sb.AppendLine($"{chapterNumber}, {chapter}");
+                                chapterNumber++;
+                            }
+                        }
+                        return sb.ToString();
+                    }
+                                    }
+class Program
+{
+    static void Main()
+    {
+                        var book = new Book();
+                    book[0] = "Введение";
+                    book[1] = "Глава 1";
+                    Console.WriteLine(book[0]);
+    }
+}

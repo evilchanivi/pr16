@@ -1,0 +1,50 @@
+  public class Counter
+            {
+                public string Name { get; set; }
+                public int Value { get; set; }
+
+                public Counter(string name, int value)
+                {
+                    Name = name; Value = value;
+                }
+                public static Counter operator +(Counter counter, int increment)
+                {
+                    return new Counter(counter.Name, counter.Value + increment);
+                }
+                public object this[string index]
+                {
+                    get
+                    {
+                        if (index.ToLower() == "value")
+                            return Value;
+                        else if (index.ToLower() == "name")
+                            return Name;
+                        else
+                            throw new ArgumentException("Доступно только 'value' или 'name'");
+                    }
+                    set
+                    {
+                        if (index.ToLower() == "value")
+                            Value = (int)value;
+                        else if (index.ToLower() == "name")
+                            Name = (string)value;
+                        else
+                            throw new ArgumentException("Доступно только 'value' или 'name'");
+                    }
+                }
+                public override string ToString()
+                {
+                    return $"{Name}, {Value}";
+                }
+
+                class Program
+{
+    static void Main()
+    {
+                    var c = new Counter("Счётчик", 10);
+                    c = c + 5;
+                    Console.WriteLine(c);
+                    c["value"] = 20;
+                    Console.WriteLine(c["value"]);
+                }
+          }
